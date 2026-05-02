@@ -26,18 +26,32 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+    margin: 0;
+    padding: 20px 0;
     background-color: #ffeb3b; 
     background-image: radial-gradient(#fbc02d 15%, transparent 16%), radial-gradient(#fbc02d 15%, transparent 16%);
     background-size: 30px 30px;
     background-position: 0 0, 15px 15px; 
-    margin: 0;
-    padding: 15px;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
     overflow-x: hidden;
   }
 
-  /* --- HEADER & JUDUL KOMIK --- */
+  /* --- WADAH SKALA OTOMATIS (AGAR HP = LAPTOP) --- */
+  #scale-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #app-wrapper {
+    width: 950px; /* Lebar pakem ala desktop */
+    transform-origin: top center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* --- HEADER & JUDUL 3D KOMIK --- */
   .header-info { 
     width: 100%; 
     display: flex;
@@ -45,16 +59,17 @@
     margin-bottom: 25px;
   }
 
-  /* Panel putih untuk merapikan logo dan teks (Caption Box Komik) */
   .header-panel {
     background-color: #fff;
     border: 5px solid #000;
     border-radius: 20px;
     padding: 20px 30px;
     box-shadow: 10px 10px 0px rgba(0,0,0,0.9);
-    max-width: 950px;
     width: 100%;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .title-wrapper {
@@ -62,13 +77,12 @@
     align-items: center;
     justify-content: center;
     gap: 25px;
-    flex-wrap: wrap; 
   }
 
   .comic-avatar {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%; /* Crop melingkar */
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
     object-fit: cover;
     border: 5px solid #000; 
     box-shadow: 6px 6px 0px #000; 
@@ -80,7 +94,7 @@
   .title-text {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Menyusun teks rata kiri bersebelahan dengan logo */
+    align-items: flex-start;
   }
 
   .comic-title { 
@@ -88,56 +102,77 @@
     display: flex;
     flex-direction: column;
     text-transform: uppercase;
-    transform: skew(-2deg) rotate(-1deg); /* Miring dinamis khas judul komik aksi */
-    line-height: 1.1;
+    transform: skew(-4deg) rotate(-2deg); 
+    line-height: 0.95;
+    position: relative;
   }
 
+  /* Efek 3D Baris Pertama */
   .line1 {
-    font-size: 22px;
-    color: #ff9800; /* Warna oranye agar kontras */
+    font-size: 26px;
+    color: #fff; 
     font-weight: 900;
     letter-spacing: 2px;
-    -webkit-text-stroke: 1.5px #000;
-    text-shadow: 3px 3px 0px #000;
-    margin-bottom: -5px; /* Ditarik sedikit agar merapat dengan POROGAPIT */
-    margin-left: 5px;
+    -webkit-text-stroke: 2px #000;
+    text-shadow: 
+      1px 1px 0px #000, 
+      2px 2px 0px #000, 
+      3px 3px 0px #000, 
+      4px 4px 0px #2196f3, 
+      5px 5px 0px #2196f3;
+    margin-left: 10px;
+    z-index: 2;
   }
 
+  /* Efek 3D Super Tebal Baris Kedua */
   .line2 {
-    font-size: 56px;
-    color: #fff;
+    font-size: 64px;
+    color: #ffeb3b; /* Kuning cerah */
     font-weight: 900;
     letter-spacing: 3px;
-    -webkit-text-stroke: 2.5px #000;
-    /* Efek Pop-Art 3D Berlapis: Hitam -> Pink -> Hitam */
+    -webkit-text-stroke: 3px #000;
     text-shadow: 
-      3px 3px 0px #000, 
-      7px 7px 0px #e91e63, 
-      10px 10px 0px #000;
+      1px 1px 0px #f57c00, 
+      2px 2px 0px #f57c00, 
+      3px 3px 0px #f57c00, 
+      4px 4px 0px #f57c00, 
+      5px 5px 0px #d32f2f, 
+      6px 6px 0px #d32f2f, 
+      7px 7px 0px #d32f2f, 
+      8px 8px 0px #d32f2f, 
+      9px 9px 0px #000, 
+      10px 10px 0px #000, 
+      11px 11px 0px #000, 
+      12px 12px 0px #000;
+    z-index: 1;
   }
   
+  /* Lencana "By Mathnology" (Diperbaiki posisinya) */
   .subtitle {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 900;
     color: #fff;
-    margin-top: 5px;
-    margin-left: auto; /* Mendorong lencana ke sudut kanan bungkus teks */
+    margin-left: auto; 
+    margin-top: 20px; /* Menambahkan jarak dari bayangan judul */
+    transform: rotate(-3deg); /* Menghilangkan efek naik/tumpuk */
     display: inline-block;
     padding: 6px 20px;
-    background: #00bcd4; /* Lencana Cyan cerah */
+    background: #00bcd4; 
     border: 3px solid #000;
     border-radius: 20px;
     box-shadow: 4px 4px 0px #000;
-    transform: rotate(-3deg); 
+    position: relative;
+    z-index: 3;
   }
 
   /* --- MAIN LAYOUT --- */
   .main-layout {
-    display: flex; gap: 30px; flex-wrap: wrap;
-    justify-content: center; align-items: flex-start;
+    display: flex; 
+    gap: 30px; 
+    justify-content: center; 
+    align-items: flex-start;
     z-index: 10;
     width: 100%;
-    max-width: 950px;
   }
 
   /* --- PAPAN POROGAPIT --- */
@@ -147,29 +182,8 @@
     border: 5px solid #000; 
     border-radius: 15px; 
     box-shadow: 10px 10px 0px rgba(0,0,0,0.85); 
-    transform-origin: top center; transition: transform 0.3s ease, margin-bottom 0.3s ease;
     padding-bottom: 50px;
   }
-
-  /* --- MEDIA QUERIES (Resposif layat kecil) --- */
-  @media (max-width: 900px) { .container { transform: scale(0.8); margin-bottom: -100px; } }
-  @media (max-width: 768px) {
-    .header-panel { padding: 15px; box-shadow: 6px 6px 0px #000; }
-    .title-wrapper { flex-direction: column; text-align: center; gap: 15px; }
-    .title-text { align-items: center; }
-    .comic-title { transform: skew(0deg) rotate(0deg); align-items: center; }
-    .line1 { font-size: 18px; margin-left: 0; }
-    .line2 { font-size: 42px; text-shadow: 2px 2px 0px #000, 5px 5px 0px #e91e63, 8px 8px 0px #000; }
-    .subtitle { margin-left: 0; font-size: 14px; margin-top: 10px; }
-    .comic-avatar { width: 90px; height: 90px; }
-  }
-  @media (max-width: 600px) { .container { transform: scale(0.65); margin-bottom: -190px; } }
-  @media (max-width: 420px) { 
-    .container { transform: scale(0.55); margin-bottom: -240px; } 
-    .side-panel { width: 100%; max-width: 350px; padding: 15px; } 
-    .line2 { font-size: 34px; }
-  }
-  @media (max-width: 350px) { .container { transform: scale(0.48); margin-bottom: -280px; } }
 
   /* --- KOTAK ANGKA --- */
   .box {
@@ -222,7 +236,7 @@
     background: white; padding: 25px; border-radius: 15px;
     border: 4px solid #000;
     box-shadow: 8px 8px 0px rgba(0,0,0,0.85);
-    width: 100%; max-width: 320px;
+    width: 350px; 
   }
 
   .mode-box {
@@ -262,7 +276,6 @@
   .btn-orange { background: #ffa726; color: #000; margin-top: 5px; font-size: 16px; border-width: 4px; box-shadow: 5px 5px 0px #000; }
   .btn-purple { background: #ab47bc; color: #fff; margin-top: 10px; }
   
-  /* Efek Klik Komik */
   button:hover { transform: translateY(-2px) translateX(-2px); box-shadow: 6px 6px 0px #000; }
   button:active { transform: translateY(4px) translateX(4px); box-shadow: 0px 0px 0px #000; }
 
@@ -275,7 +288,7 @@
   #msg {
     margin-top: 20px; padding: 15px 20px; border-radius: 15px; 
     background: white; border: 4px solid #000; box-shadow: 6px 6px 0px #000;
-    font-weight: 900; text-align: center; width: 100%; max-width: 500px; 
+    font-weight: 900; text-align: center; width: 100%; 
     min-height: 50px; display: flex; align-items: center; justify-content: center;
     font-size: 18px; position: relative;
   }
@@ -292,62 +305,82 @@
 </head>
 <body>
 
-<div class="header-info">
-  <div class="header-panel">
-    <div class="title-wrapper">
-      <img src="https://raw.githubusercontent.com/dosen-uinsi/PEMBAGIAN-BERSUSUN-POROGAPIT/refs/heads/main/Pembagian.gif" alt="Maskot Porogapit" class="comic-avatar">
-      
-      <div class="title-text">
-        <h2 class="comic-title">
-          <span class="line1">PEMBAGIAN BERSUSUN</span>
-          <span class="line2">POROGAPIT</span>
-        </h2>
-        <div class="subtitle">By Mathnology</div>
+<div id="scale-container">
+  <div id="app-wrapper">
+
+    <div class="header-info">
+      <div class="header-panel">
+        <div class="title-wrapper">
+          <img src="https://raw.githubusercontent.com/dosen-uinsi/PEMBAGIAN-BERSUSUN-POROGAPIT/refs/heads/main/Pembagian.gif" alt="Maskot Porogapit" class="comic-avatar">
+          
+          <div class="title-text">
+            <h2 class="comic-title">
+              <span class="line1">PEMBAGIAN BERSUSUN</span>
+              <span class="line2">POROGAPIT</span>
+            </h2>
+            <div class="subtitle">By Mathnology</div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="main-layout">
-  <div class="container" id="app-container"></div>
+    <div class="main-layout">
+      <div class="container" id="app-container"></div>
 
-  <div class="side-panel">
-    <div class="mode-box">
-      <label>MODE OTOMATIS (3 DIGIT)</label>
-      <select id="difficulty-level" class="custom-select">
-        <option value="1">Level 1: Tanpa Sisa</option>
-        <option value="2">Level 2: Dengan Sisa</option>
-        <option value="3">Level 3: Ada Nol di Tengah</option>
-      </select>
-      <button class="btn-primary" onclick="startAuto()">Buat Soal Acak</button>
-    </div>
+      <div class="side-panel">
+        <div class="mode-box">
+          <label>MODE OTOMATIS (3 DIGIT)</label>
+          <select id="difficulty-level" class="custom-select">
+            <option value="1">Level 1: Tanpa Sisa</option>
+            <option value="2">Level 2: Dengan Sisa</option>
+            <option value="3">Level 3: Ada Nol di Tengah</option>
+          </select>
+          <button class="btn-primary" onclick="startAuto()">Buat Soal Acak</button>
+        </div>
 
-    <div class="mode-box">
-      <label>MODE MANUAL (3 DIGIT)</label>
-      <div class="input-row">
-        <input type="number" id="manual-dividend" placeholder="Cth: 144">
-        <span style="font-weight:900; font-size: 24px;">÷</span>
-        <input type="number" id="manual-divisor" placeholder="1 Digit">
+        <div class="mode-box">
+          <label>MODE MANUAL (3 DIGIT)</label>
+          <div class="input-row">
+            <input type="number" id="manual-dividend" placeholder="Cth: 144">
+            <span style="font-weight:900; font-size: 24px;">÷</span>
+            <input type="number" id="manual-divisor" placeholder="1 Digit">
+          </div>
+          <button class="btn-success" onclick="startManual()">Gunakan Soal Ini</button>
+        </div>
+
+        <div class="numpad">
+          <button onclick="pressNum(1)">1</button><button onclick="pressNum(2)">2</button><button onclick="pressNum(3)">3</button>
+          <button onclick="pressNum(4)">4</button><button onclick="pressNum(5)">5</button><button onclick="pressNum(6)">6</button>
+          <button onclick="pressNum(7)">7</button><button onclick="pressNum(8)">8</button><button onclick="pressNum(9)">9</button>
+          <button onclick="pressNum(0)">0</button><button class="btn-del" onclick="pressDel()">Hapus ⌫</button>
+        </div>
+
+        <button class="btn-purple" onclick="getHint()">💡 Minta Petunjuk!</button>
+        <button class="btn-orange" onclick="checkStep()">Periksa Jawaban! ✔️</button>
       </div>
-      <button class="btn-success" onclick="startManual()">Gunakan Soal Ini</button>
     </div>
 
-    <div class="numpad">
-      <button onclick="pressNum(1)">1</button><button onclick="pressNum(2)">2</button><button onclick="pressNum(3)">3</button>
-      <button onclick="pressNum(4)">4</button><button onclick="pressNum(5)">5</button><button onclick="pressNum(6)">6</button>
-      <button onclick="pressNum(7)">7</button><button onclick="pressNum(8)">8</button><button onclick="pressNum(9)">9</button>
-      <button onclick="pressNum(0)">0</button><button class="btn-del" onclick="pressDel()">Hapus ⌫</button>
-    </div>
+    <div id="msg">Selamat datang! Ayo mulai belajar pembagian.</div>
 
-    <button class="btn-purple" onclick="getHint()">💡 Minta Petunjuk!</button>
-    <button class="btn-orange" onclick="checkStep()">Periksa Jawaban! ✔️</button>
-  </div>
-</div>
+  </div> </div> <script>
+  // --- LOGIKA SKALA OTOMATIS (AUTO-ZOOM UNTUK HP) ---
+  function resizeApp() {
+    const wrapper = document.getElementById('app-wrapper');
+    const container = document.getElementById('scale-container');
+    // Lebar patokan adalah 980 (950 konten + 30 margin)
+    const scale = Math.min(window.innerWidth / 980, 1);
+    
+    wrapper.style.transform = `scale(${scale})`;
+    // Sesuaikan tinggi wadah luar agar tidak ada ruang kosong tersisa di bawah
+    container.style.height = (wrapper.offsetHeight * scale) + 'px';
+  }
+  
+  window.addEventListener('resize', resizeApp);
+  
+  // Panggil fungsi saat aplikasi baru dimuat
+  setTimeout(resizeApp, 100);
 
-<div id="msg">Selamat datang! Ayo mulai belajar pembagian.</div>
-
-<script>
-  // Script logika tidak diubah
+  // --- LOGIKA GAME ---
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   function playSound(type) {
     if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -396,12 +429,7 @@
 
   function selectDividend(idx) {
     if (!isSelectionPhase) return;
-    
-    if (idx > 1) {
-        playSound('wrong');
-        updateMsg("Pilih 1 digit atau 2 digit awal saja!", "var(--error)");
-        return;
-    }
+    if (idx > 1) { playSound('wrong'); updateMsg("Pilih 1 digit atau 2 digit awal saja!", "var(--error)"); return; }
 
     if (userSelectedDigitIndex === idx) {
         userSelectedDigitIndex = -1;
@@ -411,13 +439,8 @@
     }
 
     userSelectedDigitIndex = idx;
-    
     document.querySelectorAll('.dividend-box').forEach(el => el.classList.remove('selected'));
-    
-    for(let i = 0; i <= idx; i++) {
-        document.getElementById(`div_digit_${i}`).classList.add('selected');
-    }
-
+    for(let i = 0; i <= idx; i++) { document.getElementById(`div_digit_${i}`).classList.add('selected'); }
     updateMsg("Pilihan disimpan! Klik tombol 'Periksa Jawaban! ✔️'", "#1976d2");
   }
 
@@ -425,20 +448,16 @@
     currentDivisor = divisor;
     currentDividend = dividend;
     let strDiv = dividend.toString();
-    mathSteps = [];
-    let currentVal = 0;
-    let hasStarted = false;
+    mathSteps = []; let currentVal = 0; let hasStarted = false;
 
     for (let i = 0; i < strDiv.length; i++) {
         let digit = parseInt(strDiv[i]);
         currentVal = currentVal * 10 + digit;
         if (currentVal >= divisor || hasStarted || i === strDiv.length - 1) {
             let qDigit = Math.floor(currentVal / divisor);
-            let sub = qDigit * divisor;
-            let rem = currentVal - sub;
+            let sub = qDigit * divisor; let rem = currentVal - sub;
             mathSteps.push({ currentVal, qDigit, sub, rem, bringDown: (i < strDiv.length - 1) ? parseInt(strDiv[i+1]) : null, digitIndex: i });
-            hasStarted = true;
-            currentVal = rem;
+            hasStarted = true; currentVal = rem;
         }
     }
 
@@ -447,13 +466,10 @@
     html += `<div class="div-line-v" style="left: 170px; top: 120px; height: 80px;"></div>`;
     html += `<div class="div-line-h" style="left: 170px; top: 120px; width: 250px;"></div>`;
 
-    for(let i=0; i<3; i++) {
-        html += `<input type="text" id="div_digit_${i}" class="box dividend-box" style="left: ${200 + i*70}px; top: 140px;" readonly value="${strDiv[i]}" onclick="selectDividend(${i})">`;
-    }
+    for(let i=0; i<3; i++) { html += `<input type="text" id="div_digit_${i}" class="box dividend-box" style="left: ${200 + i*70}px; top: 140px;" readonly value="${strDiv[i]}" onclick="selectDividend(${i})">`; }
 
     for (let k = 0; k < mathSteps.length; k++) {
-        let s = mathSteps[k], qId = `q_${k}`;
-        let qClass = "box user-input hidden-step"; 
+        let s = mathSteps[k], qId = `q_${k}`; let qClass = "box user-input hidden-step"; 
         html += `<input type="text" id="${qId}" class="${qClass}" style="left: ${200 + s.digitIndex*70}px; top: 50px;" readonly>`;
         correctKeys[qId] = s.qDigit.toString();
 
@@ -501,102 +517,49 @@
         }
     }
 
-    let board = document.getElementById('app-container');
-    board.innerHTML = html;
+    let board = document.getElementById('app-container'); board.innerHTML = html;
     board.style.height = (310 + (mathSteps.length - 1) * 170 + 100) + 'px';
-    
-    currentStep = 0;
-    activeId = null; 
-    isSelectionPhase = true; 
-    userSelectedDigitIndex = -1; 
-    initialDigitIndex = mathSteps[0].digitIndex; 
-    
+    currentStep = 0; activeId = null; isSelectionPhase = true; userSelectedDigitIndex = -1; initialDigitIndex = mathSteps[0].digitIndex; 
     attachEvents();
+    setTimeout(resizeApp, 50); // Panggil ulang untuk pastikan tinggi sesuai setelah layout dirender
   }
 
   function startAuto() {
     let level = document.getElementById('difficulty-level').value;
-    let d = Math.floor(Math.random() * 8) + 2; 
-    let q, r, dividend;
-
-    if (level === '1') {
-      let maxQ = Math.floor(999/d), minQ = Math.ceil(100/d);
-      q = Math.floor(Math.random() * (maxQ - minQ + 1)) + minQ;
-      dividend = d * q;
-    } else if (level === '2') {
-      let maxQ = Math.floor(999/d), minQ = Math.ceil(100/d);
-      q = Math.floor(Math.random() * (maxQ - minQ + 1)) + minQ;
-      r = Math.floor(Math.random() * (d - 1)) + 1;
-      dividend = d * q + r;
-      if(dividend > 999) dividend -= d; 
-    } else if (level === '3') {
-      let validQs = [];
-      for (let X = 1; X <= 9; X++) {
-        for (let Y = 1; Y <= 9; Y++) {
-          let val = X * 100 + Y;
-          if (val * d >= 100 && val * d <= 999) validQs.push(val);
-        }
-      }
-      q = validQs.length > 0 ? validQs[Math.floor(Math.random() * validQs.length)] : 101;
-      dividend = d * q;
-    }
-
-    setupEngine(d, dividend);
-    updateMsg("Klik 1 digit atau 2 digit awal yang mau dibagi, lalu Periksa Jawaban!", "#000");
+    let d = Math.floor(Math.random() * 8) + 2; let q, r, dividend;
+    if (level === '1') { let maxQ = Math.floor(999/d), minQ = Math.ceil(100/d); q = Math.floor(Math.random() * (maxQ - minQ + 1)) + minQ; dividend = d * q; } 
+    else if (level === '2') { let maxQ = Math.floor(999/d), minQ = Math.ceil(100/d); q = Math.floor(Math.random() * (maxQ - minQ + 1)) + minQ; r = Math.floor(Math.random() * (d - 1)) + 1; dividend = d * q + r; if(dividend > 999) dividend -= d; } 
+    else if (level === '3') { let validQs = []; for (let X = 1; X <= 9; X++) { for (let Y = 1; Y <= 9; Y++) { let val = X * 100 + Y; if (val * d >= 100 && val * d <= 999) validQs.push(val); } } q = validQs.length > 0 ? validQs[Math.floor(Math.random() * validQs.length)] : 101; dividend = d * q; }
+    setupEngine(d, dividend); updateMsg("Klik 1 digit atau 2 digit awal yang mau dibagi, lalu Periksa Jawaban!", "#000");
   }
 
   function startManual() {
-    let div = parseInt(document.getElementById('manual-divisor').value);
-    let dnd = parseInt(document.getElementById('manual-dividend').value);
-    if(isNaN(div) || isNaN(dnd)) return alert("Isi angka dulu!");
-    if(dnd < 100 || dnd > 999) return alert("Angka yang dibagi harus 3 digit!");
-    setupEngine(div, dnd);
-    updateMsg("Klik 1 digit atau 2 digit awal yang mau dibagi, lalu Periksa Jawaban!", "#000");
+    let div = parseInt(document.getElementById('manual-divisor').value); let dnd = parseInt(document.getElementById('manual-dividend').value);
+    if(isNaN(div) || isNaN(dnd)) return alert("Isi angka dulu!"); if(dnd < 100 || dnd > 999) return alert("Angka yang dibagi harus 3 digit!");
+    setupEngine(div, dnd); updateMsg("Klik 1 digit atau 2 digit awal yang mau dibagi, lalu Periksa Jawaban!", "#000");
   }
 
   function checkStep() {
     if (audioCtx.state === 'suspended') audioCtx.resume();
-
     if(isSelectionPhase) {
-        if(userSelectedDigitIndex === -1) {
-            playSound('wrong');
-            updateMsg("Klik dulu angka yang mau dibagi di dalam kotak!", "var(--error)");
-            return;
-        }
-
+        if(userSelectedDigitIndex === -1) { playSound('wrong'); updateMsg("Klik dulu angka yang mau dibagi di dalam kotak!", "var(--error)"); return; }
         if (userSelectedDigitIndex === initialDigitIndex) {
-            playSound('correct');
-            isSelectionPhase = false; 
-            
-            let firstQBox = document.getElementById('q_0');
-            firstQBox.classList.remove('hidden-step');
-            firstQBox.classList.add('fade-in');
-            
-            setActive('q_0'); 
-            updateMsg("TEPAT SEKALI! Sekarang ketik hasil baginya di atas.", "var(--success)");
+            playSound('correct'); isSelectionPhase = false; 
+            let firstQBox = document.getElementById('q_0'); firstQBox.classList.remove('hidden-step'); firstQBox.classList.add('fade-in');
+            setActive('q_0'); updateMsg("TEPAT SEKALI! Sekarang ketik hasil baginya di atas.", "var(--success)");
         } else {
-            playSound('wrong');
-            let val = parseInt(currentDividend.toString().substring(0, userSelectedDigitIndex + 1));
-            
-            if (val < currentDivisor) {
-                document.getElementById(`div_digit_${userSelectedDigitIndex}`).classList.add('shake');
-                setTimeout(() => document.getElementById(`div_digit_${userSelectedDigitIndex}`).classList.remove('shake'), 400);
-                updateMsg(`UPS! ${val} lebih kecil dari ${currentDivisor}. Coba klik angka sebelahnya agar jadi 2 digit!`, "var(--error)");
-            } else {
-                document.getElementById(`div_digit_${userSelectedDigitIndex}`).classList.add('shake');
-                setTimeout(() => document.getElementById(`div_digit_${userSelectedDigitIndex}`).classList.remove('shake'), 400);
-                updateMsg(`TUNGGU! Angka ${val} sudah bisa dibagi ${currentDivisor}. Cukup pilih 1 digit awal saja!`, "var(--error)");
-            }
-        }
-        return; 
+            playSound('wrong'); let val = parseInt(currentDividend.toString().substring(0, userSelectedDigitIndex + 1));
+            let digEl = document.getElementById(`div_digit_${userSelectedDigitIndex}`);
+            digEl.classList.add('shake'); setTimeout(() => digEl.classList.remove('shake'), 400);
+            if (val < currentDivisor) updateMsg(`UPS! ${val} lebih kecil dari ${currentDivisor}. Coba klik angka sebelahnya agar jadi 2 digit!`, "var(--error)");
+            else updateMsg(`TUNGGU! Angka ${val} sudah bisa dibagi ${currentDivisor}. Cukup pilih 1 digit awal saja!`, "var(--error)");
+        } return; 
     }
     
     if(!stepMap[currentStep]) return;
-    
     let stage = stepMap[currentStep], ok = true, anyEmpty = false;
     stage.in.forEach(id => {
-      let el = document.getElementById(id);
-      el.classList.remove('shake'); 
+      let el = document.getElementById(id); el.classList.remove('shake'); 
       if(el.value === '') { anyEmpty = true; ok = false; } 
       else if(el.value === correctKeys[id]) { el.classList.add('correct'); el.classList.remove('wrong', 'active-input'); } 
       else { el.classList.add('wrong'); void el.offsetWidth; el.classList.add('shake'); ok = false; }
@@ -606,35 +569,24 @@
       playSound('correct');
       if(stage.out.length > 0) {
         stage.out.forEach(id => { let el = document.getElementById(id); el.classList.remove('hidden-step'); el.classList.add('fade-in'); });
-        currentStep++; setActive(stepMap[currentStep].in[0]);
-        updateMsg("BAGUS! Lanjutkan langkah berikutnya.", "var(--success)");
+        currentStep++; setActive(stepMap[currentStep].in[0]); updateMsg("BAGUS! Lanjutkan langkah berikutnya.", "var(--success)");
       } else {
-        let finalQuotient = mathSteps.map(m => m.qDigit).join('');
-        let finalRemainder = mathSteps[mathSteps.length - 1].rem;
+        let finalQuotient = mathSteps.map(m => m.qDigit).join(''); let finalRemainder = mathSteps[mathSteps.length - 1].rem;
         let resultText = `🎉 HEBAT! ${currentDividend} : ${currentDivisor} = ${finalQuotient}`;
         if(finalRemainder > 0) resultText += ` Sisa ${finalRemainder}`;
-        
         playSound('win'); triggerConfetti(); updateMsg(resultText, "var(--success)"); setActive(null);
       }
-    } else {
-      playSound('wrong');
-      updateMsg(anyEmpty ? "Isi kotak biru yang kosong!" : "UPS, ada yang salah. Cek kotak merah!", "var(--error)");
-    }
+    } else { playSound('wrong'); updateMsg(anyEmpty ? "Isi kotak biru yang kosong!" : "UPS, ada yang salah. Cek kotak merah!", "var(--error)"); }
   }
 
   function getHint() {
     if(isSelectionPhase) {
         let firstDigit = parseInt(currentDividend.toString()[0]);
-        if (firstDigit < currentDivisor) {
-            updateMsg(`💡 Karena ${firstDigit} lebih kecil dari ${currentDivisor}, kamu harus ambil 2 angka! Klik angka ke-2.`, "#8e24aa");
-        } else {
-            updateMsg(`💡 Karena ${firstDigit} sudah bisa dibagi ${currentDivisor}, cukup klik angka pertama saja!`, "#8e24aa");
-        }
+        if (firstDigit < currentDivisor) updateMsg(`💡 Karena ${firstDigit} lebih kecil dari ${currentDivisor}, kamu harus ambil 2 angka! Klik angka ke-2.`, "#8e24aa");
+        else updateMsg(`💡 Karena ${firstDigit} sudah bisa dibagi ${currentDivisor}, cukup klik angka pertama saja!`, "#8e24aa");
         return;
     }
-    
-    if(!stepMap[currentStep]) return;
-    let s = mathSteps[stepMap[currentStep].mStep], m = ""; 
+    if(!stepMap[currentStep]) return; let s = mathSteps[stepMap[currentStep].mStep], m = ""; 
     if(stepMap[currentStep].type === 'q') m = `${s.currentVal} : ${currentDivisor}?`;
     else if(stepMap[currentStep].type === 'sub') m = `${s.qDigit} x ${currentDivisor}?`;
     else m = "Kurangi angkanya dan ketik hasilnya.";
