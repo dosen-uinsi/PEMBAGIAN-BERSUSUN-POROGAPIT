@@ -27,7 +27,7 @@
     flex-direction: column;
     align-items: center;
     margin: 0;
-    padding: 20px 0;
+    padding: 20px 15px;
     background-color: #ffeb3b; 
     background-image: radial-gradient(#fbc02d 15%, transparent 16%), radial-gradient(#fbc02d 15%, transparent 16%);
     background-size: 30px 30px;
@@ -36,24 +36,10 @@
     overflow-x: hidden;
   }
 
-  /* --- WADAH SKALA OTOMATIS (AGAR HP = LAPTOP) --- */
-  #scale-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  #app-wrapper {
-    width: 950px; /* Lebar pakem ala desktop */
-    transform-origin: top center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
   /* --- HEADER & JUDUL 3D KOMIK --- */
   .header-info { 
     width: 100%; 
+    max-width: 950px;
     display: flex;
     justify-content: center;
     margin-bottom: 25px;
@@ -66,13 +52,6 @@
     padding: 20px 30px;
     box-shadow: 10px 10px 0px rgba(0,0,0,0.9);
     width: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .title-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -114,12 +93,7 @@
     font-weight: 900;
     letter-spacing: 2px;
     -webkit-text-stroke: 2px #000;
-    text-shadow: 
-      1px 1px 0px #000, 
-      2px 2px 0px #000, 
-      3px 3px 0px #000, 
-      4px 4px 0px #2196f3, 
-      5px 5px 0px #2196f3;
+    text-shadow: 1px 1px 0 #000, 2px 2px 0 #000, 3px 3px 0 #000, 4px 4px 0 #2196f3, 5px 5px 0 #2196f3;
     margin-left: 10px;
     z-index: 2;
   }
@@ -127,34 +101,25 @@
   /* Efek 3D Super Tebal Baris Kedua */
   .line2 {
     font-size: 64px;
-    color: #ffeb3b; /* Kuning cerah */
+    color: #ffeb3b; 
     font-weight: 900;
     letter-spacing: 3px;
     -webkit-text-stroke: 3px #000;
     text-shadow: 
-      1px 1px 0px #f57c00, 
-      2px 2px 0px #f57c00, 
-      3px 3px 0px #f57c00, 
-      4px 4px 0px #f57c00, 
-      5px 5px 0px #d32f2f, 
-      6px 6px 0px #d32f2f, 
-      7px 7px 0px #d32f2f, 
-      8px 8px 0px #d32f2f, 
-      9px 9px 0px #000, 
-      10px 10px 0px #000, 
-      11px 11px 0px #000, 
-      12px 12px 0px #000;
+      1px 1px 0 #f57c00, 2px 2px 0 #f57c00, 3px 3px 0 #f57c00, 4px 4px 0 #f57c00, 
+      5px 5px 0 #d32f2f, 6px 6px 0 #d32f2f, 7px 7px 0 #d32f2f, 8px 8px 0 #d32f2f, 
+      9px 9px 0 #000, 10px 10px 0 #000, 11px 11px 0 #000, 12px 12px 0 #000;
     z-index: 1;
   }
   
-  /* Lencana "By Mathnology" (Diperbaiki posisinya) */
+  /* Lencana "By Mathnology" */
   .subtitle {
     font-size: 20px;
     font-weight: 900;
     color: #fff;
     margin-left: auto; 
-    margin-top: 20px; /* Menambahkan jarak dari bayangan judul */
-    transform: rotate(-3deg); /* Menghilangkan efek naik/tumpuk */
+    margin-top: 20px; 
+    transform: rotate(-3deg); 
     display: inline-block;
     padding: 6px 20px;
     background: #00bcd4; 
@@ -165,7 +130,7 @@
     z-index: 3;
   }
 
-  /* --- MAIN LAYOUT --- */
+  /* --- MAIN LAYOUT RESPONSIVE --- */
   .main-layout {
     display: flex; 
     gap: 30px; 
@@ -173,33 +138,75 @@
     align-items: flex-start;
     z-index: 10;
     width: 100%;
+    max-width: 950px;
+  }
+
+  .board-wrapper {
+    display: flex;
+    justify-content: center;
+    width: auto;
   }
 
   /* --- PAPAN POROGAPIT --- */
   .container {
-    position: relative; width: 550px; min-height: 580px;
+    position: relative; 
+    width: 550px; /* Ukuran asli dipertahankan agar JS tidak hancur */
+    min-height: 580px;
     background-color: var(--board-bg); 
     border: 5px solid #000; 
     border-radius: 15px; 
     box-shadow: 10px 10px 0px rgba(0,0,0,0.85); 
     padding-bottom: 50px;
+    transform-origin: top center;
+  }
+
+  /* --- MEDIA QUERIES (OPTIMASI HP) --- */
+  @media (max-width: 950px) {
+    /* Layout berubah jadi vertikal (tumpuk atas bawah) */
+    .main-layout { flex-direction: column; align-items: center; gap: 15px; }
+    .side-panel { width: 100%; max-width: 550px; }
+  }
+
+  @media (max-width: 768px) {
+    /* Header beradaptasi di layar kecil */
+    .header-panel { flex-direction: column; text-align: center; gap: 15px; }
+    .title-text { align-items: center; }
+    .comic-title { transform: none; }
+    .line1 { font-size: 20px; margin-left: 0; }
+    .line2 { font-size: 46px; -webkit-text-stroke: 2px #000; text-shadow: 1px 1px 0 #f57c00, 2px 2px 0 #f57c00, 3px 3px 0 #d32f2f, 4px 4px 0 #d32f2f, 5px 5px 0 #000, 6px 6px 0 #000, 7px 7px 0 #000; }
+    .subtitle { margin-left: 0; margin-top: 15px; transform: none; font-size: 16px; }
+    .comic-avatar { width: 90px; height: 90px; border-width: 3px; }
+  }
+
+  @media (max-width: 600px) {
+    /* Papan mengecil, tap border ditarik ke atas agar tidak renggang */
+    .container { transform: scale(0.85); margin-bottom: -90px; }
+  }
+
+  @media (max-width: 480px) {
+    /* Papan lebih kecil lagi untuk HP sempit */
+    .container { transform: scale(0.65); margin-bottom: -200px; }
+    .line2 { font-size: 36px; }
+    .side-panel { padding: 15px; }
+    .numpad button { font-size: 20px; padding: 12px; }
+  }
+
+  @media (max-width: 380px) {
+    .container { transform: scale(0.55); margin-bottom: -260px; }
+    .line2 { font-size: 30px; }
   }
 
   /* --- KOTAK ANGKA --- */
   .box {
     position: absolute; width: 52px; height: 52px;
-    background-color: white; 
-    border: var(--comic-border); 
-    box-shadow: 3px 3px 0px #000; 
-    text-align: center; font-size: 26px; font-weight: bold;
-    font-family: inherit;
+    background-color: white; border: var(--comic-border); box-shadow: 3px 3px 0px #000; 
+    text-align: center; font-size: 26px; font-weight: bold; font-family: inherit;
     outline: none; transition: 0.1s; cursor: pointer; border-radius: 8px;
     touch-action: manipulation;
   }
   .box.active-input {
     border-color: var(--primary); background-color: #e3f2fd;
-    transform: scale(1.15) translateY(-2px); z-index: 10; 
-    box-shadow: 4px 4px 0px var(--primary); 
+    transform: scale(1.15) translateY(-2px); z-index: 10; box-shadow: 4px 4px 0px var(--primary); 
   }
   .box.correct { background-color: #c8e6c9 !important; border-color: var(--success) !important; color: #1b5e20; box-shadow: 3px 3px 0px var(--success); }
   .box.wrong { background-color: #ffcdd2 !important; border-color: var(--error) !important; color: #b71c1c; box-shadow: 3px 3px 0px var(--error); }
@@ -207,18 +214,9 @@
 
   .dividend-box { cursor: pointer; transition: background-color 0.1s, transform 0.1s; }
   .dividend-box:hover { transform: scale(1.05); }
-  .dividend-box.selected {
-    background-color: #fff9c4 !important;
-    border-color: #ff9800 !important;
-    box-shadow: 4px 4px 0px #ff9800;
-    transform: translateY(-2px);
-  }
+  .dividend-box.selected { background-color: #fff9c4 !important; border-color: #ff9800 !important; box-shadow: 4px 4px 0px #ff9800; transform: translateY(-2px); }
 
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-6px) rotate(-5deg); }
-    75% { transform: translateX(6px) rotate(5deg); }
-  }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px) rotate(-5deg); } 75% { transform: translateX(6px) rotate(5deg); } }
   .shake { animation: shake 0.4s ease-in-out; }
 
   .hidden-step { opacity: 0; pointer-events: none; transform: translateY(-10px); }
@@ -234,42 +232,30 @@
   .side-panel {
     display: flex; flex-direction: column; gap: 15px;
     background: white; padding: 25px; border-radius: 15px;
-    border: 4px solid #000;
-    box-shadow: 8px 8px 0px rgba(0,0,0,0.85);
+    border: 4px solid #000; box-shadow: 8px 8px 0px rgba(0,0,0,0.85);
     width: 350px; 
   }
 
   .mode-box {
-    background: #f8f9fa; 
-    border: var(--comic-border);
-    box-shadow: 4px 4px 0px #000;
+    background: #f8f9fa; border: var(--comic-border); box-shadow: 4px 4px 0px #000;
     padding: 15px; border-radius: 10px; display: flex; flex-direction: column; gap: 10px;
   }
   .mode-box label { font-size: 14px; font-weight: 900; color: #000; text-transform: uppercase; }
   
   .custom-select, .input-row input {
-    width: 100%; padding: 10px; border-radius: 8px; 
-    border: var(--comic-border);
-    font-family: inherit; font-weight: bold; font-size: 14px; 
-    background: white; cursor: pointer;
-    box-shadow: 2px 2px 0px #000;
+    width: 100%; padding: 12px; border-radius: 8px; border: var(--comic-border);
+    font-family: inherit; font-weight: bold; font-size: 16px; background: white; cursor: pointer;
+    box-shadow: 2px 2px 0px #000; touch-action: manipulation;
   }
 
   .input-row { display: flex; gap: 8px; align-items: center; }
 
   /* --- TOMBOL KOMIK --- */
   button {
-    padding: 12px; 
-    border: var(--comic-border); 
-    border-radius: 8px; 
-    font-weight: 900;
-    cursor: pointer; 
-    transition: 0.1s; 
-    font-size: 14px;
-    font-family: inherit;
-    text-transform: uppercase;
-    box-shadow: 4px 4px 0px #000; 
-    touch-action: manipulation;
+    padding: 15px; /* Dibuat lebih tebal agar nyaman disentuh */
+    border: var(--comic-border); border-radius: 8px; font-weight: 900;
+    cursor: pointer; transition: 0.1s; font-size: 14px; font-family: inherit;
+    text-transform: uppercase; box-shadow: 4px 4px 0px #000; touch-action: manipulation;
   }
   .btn-primary { background: #29b6f6; color: #000; }
   .btn-success { background: #66bb6a; color: #000; }
@@ -281,14 +267,14 @@
 
   /* --- NUMPAD --- */
   .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 5px 0; }
-  .numpad button { background: #fff; color: #000; font-size: 22px; padding: 15px; }
-  .numpad .btn-del { grid-column: span 2; background: #ef5350; color: #fff; }
+  .numpad button { background: #fff; color: #000; font-size: 24px; padding: 15px; }
+  .numpad .btn-del { grid-column: span 2; background: #ef5350; color: #fff; font-size: 18px; }
 
   /* --- KOTAK PESAN --- */
   #msg {
     margin-top: 20px; padding: 15px 20px; border-radius: 15px; 
     background: white; border: 4px solid #000; box-shadow: 6px 6px 0px #000;
-    font-weight: 900; text-align: center; width: 100%; 
+    font-weight: 900; text-align: center; width: 100%; max-width: 550px;
     min-height: 50px; display: flex; align-items: center; justify-content: center;
     font-size: 18px; position: relative;
   }
@@ -300,87 +286,66 @@
     content: ''; position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
     border-width: 0 10px 10px 10px; border-style: solid; border-color: transparent transparent #fff transparent;
   }
-
 </style>
 </head>
 <body>
 
-<div id="scale-container">
-  <div id="app-wrapper">
-
-    <div class="header-info">
-      <div class="header-panel">
-        <div class="title-wrapper">
-          <img src="https://raw.githubusercontent.com/dosen-uinsi/PEMBAGIAN-BERSUSUN-POROGAPIT/refs/heads/main/Pembagian.gif" alt="Maskot Porogapit" class="comic-avatar">
-          
-          <div class="title-text">
-            <h2 class="comic-title">
-              <span class="line1">PEMBAGIAN BERSUSUN</span>
-              <span class="line2">POROGAPIT</span>
-            </h2>
-            <div class="subtitle">By Mathnology</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="main-layout">
-      <div class="container" id="app-container"></div>
-
-      <div class="side-panel">
-        <div class="mode-box">
-          <label>MODE OTOMATIS (3 DIGIT)</label>
-          <select id="difficulty-level" class="custom-select">
-            <option value="1">Level 1: Tanpa Sisa</option>
-            <option value="2">Level 2: Dengan Sisa</option>
-            <option value="3">Level 3: Ada Nol di Tengah</option>
-          </select>
-          <button class="btn-primary" onclick="startAuto()">Buat Soal Acak</button>
-        </div>
-
-        <div class="mode-box">
-          <label>MODE MANUAL (3 DIGIT)</label>
-          <div class="input-row">
-            <input type="number" id="manual-dividend" placeholder="Cth: 144">
-            <span style="font-weight:900; font-size: 24px;">÷</span>
-            <input type="number" id="manual-divisor" placeholder="1 Digit">
-          </div>
-          <button class="btn-success" onclick="startManual()">Gunakan Soal Ini</button>
-        </div>
-
-        <div class="numpad">
-          <button onclick="pressNum(1)">1</button><button onclick="pressNum(2)">2</button><button onclick="pressNum(3)">3</button>
-          <button onclick="pressNum(4)">4</button><button onclick="pressNum(5)">5</button><button onclick="pressNum(6)">6</button>
-          <button onclick="pressNum(7)">7</button><button onclick="pressNum(8)">8</button><button onclick="pressNum(9)">9</button>
-          <button onclick="pressNum(0)">0</button><button class="btn-del" onclick="pressDel()">Hapus ⌫</button>
-        </div>
-
-        <button class="btn-purple" onclick="getHint()">💡 Minta Petunjuk!</button>
-        <button class="btn-orange" onclick="checkStep()">Periksa Jawaban! ✔️</button>
-      </div>
-    </div>
-
-    <div id="msg">Selamat datang! Ayo mulai belajar pembagian.</div>
-
-  </div> </div> <script>
-  // --- LOGIKA SKALA OTOMATIS (AUTO-ZOOM UNTUK HP) ---
-  function resizeApp() {
-    const wrapper = document.getElementById('app-wrapper');
-    const container = document.getElementById('scale-container');
-    // Lebar patokan adalah 980 (950 konten + 30 margin)
-    const scale = Math.min(window.innerWidth / 980, 1);
+<div class="header-info">
+  <div class="header-panel">
+    <img src="https://raw.githubusercontent.com/dosen-uinsi/PEMBAGIAN-BERSUSUN-POROGAPIT/refs/heads/main/Pembagian.gif" alt="Maskot Porogapit" class="comic-avatar">
     
-    wrapper.style.transform = `scale(${scale})`;
-    // Sesuaikan tinggi wadah luar agar tidak ada ruang kosong tersisa di bawah
-    container.style.height = (wrapper.offsetHeight * scale) + 'px';
-  }
-  
-  window.addEventListener('resize', resizeApp);
-  
-  // Panggil fungsi saat aplikasi baru dimuat
-  setTimeout(resizeApp, 100);
+    <div class="title-text">
+      <h2 class="comic-title">
+        <span class="line1">PEMBAGIAN BERSUSUN</span>
+        <span class="line2">POROGAPIT</span>
+      </h2>
+      <div class="subtitle">By Mathnology</div>
+    </div>
+  </div>
+</div>
 
-  // --- LOGIKA GAME ---
+<div class="main-layout">
+  <div class="board-wrapper">
+    <div class="container" id="app-container"></div>
+  </div>
+
+  <div class="side-panel">
+    <div class="mode-box">
+      <label>MODE OTOMATIS (3 DIGIT)</label>
+      <select id="difficulty-level" class="custom-select">
+        <option value="1">Level 1: Tanpa Sisa</option>
+        <option value="2">Level 2: Dengan Sisa</option>
+        <option value="3">Level 3: Ada Nol di Tengah</option>
+      </select>
+      <button class="btn-primary" onclick="startAuto()">Buat Soal Acak</button>
+    </div>
+
+    <div class="mode-box">
+      <label>MODE MANUAL (3 DIGIT)</label>
+      <div class="input-row">
+        <input type="number" id="manual-dividend" placeholder="Cth: 144">
+        <span style="font-weight:900; font-size: 24px;">÷</span>
+        <input type="number" id="manual-divisor" placeholder="1 Digit">
+      </div>
+      <button class="btn-success" onclick="startManual()">Gunakan Soal Ini</button>
+    </div>
+
+    <div class="numpad">
+      <button onclick="pressNum(1)">1</button><button onclick="pressNum(2)">2</button><button onclick="pressNum(3)">3</button>
+      <button onclick="pressNum(4)">4</button><button onclick="pressNum(5)">5</button><button onclick="pressNum(6)">6</button>
+      <button onclick="pressNum(7)">7</button><button onclick="pressNum(8)">8</button><button onclick="pressNum(9)">9</button>
+      <button onclick="pressNum(0)">0</button><button class="btn-del" onclick="pressDel()">Hapus ⌫</button>
+    </div>
+
+    <button class="btn-purple" onclick="getHint()">💡 Minta Petunjuk!</button>
+    <button class="btn-orange" onclick="checkStep()">Periksa Jawaban! ✔️</button>
+  </div>
+</div>
+
+<div id="msg">Selamat datang! Ayo mulai belajar pembagian.</div>
+
+<script>
+  // Script game tetap sama, tidak ada yang dirusak
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   function playSound(type) {
     if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -521,7 +486,6 @@
     board.style.height = (310 + (mathSteps.length - 1) * 170 + 100) + 'px';
     currentStep = 0; activeId = null; isSelectionPhase = true; userSelectedDigitIndex = -1; initialDigitIndex = mathSteps[0].digitIndex; 
     attachEvents();
-    setTimeout(resizeApp, 50); // Panggil ulang untuk pastikan tinggi sesuai setelah layout dirender
   }
 
   function startAuto() {
